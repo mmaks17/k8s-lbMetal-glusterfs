@@ -1,0 +1,52 @@
+- hosts: all
+  become: yes
+  gather_facts: false
+  tasks:
+    - name: Add IP address of all hosts to all hosts
+      become: yes
+      lineinfile:
+        dest: /etc/hosts
+        regexp: '.*{{ item }}$'
+        line: "{{ hostvars[item].ansible_host }} {{item}}"
+        state: present
+      when: hostvars[item].ansible_host is defined
+      with_items: "{{ groups.all }}"
+
+    - name: Set authorized key for user ubuntu copying it from current user
+      authorized_key:
+        user: root
+        state: present
+        key: "{{ lookup('file', lookup('env','HOME') + '/.ssh/id_rsa.pub') }}"
+    - name: Ensure hostname set
+      hostname: name={{ inventory_hostname }}
+
+    - name: be sure firewalld is disabled
+      systemd: name=firewalld enabled=no
+      tags:
+      - install
+      - atomic
+      - firewalld
+
+    - name: be sure firewalld is stopped
+      systemd: name=firewalld state=stopped
+      ignore_errors: yes
+      tags:
+      - install
+      - atomic
+      - firewalld
+
+    - name: Install base
+      yum: name=epel-release state=present
+      
+    - name: Install App
+      yum:
+        name: 
+          - git
+          - wget
+          - net-tools
+      
+#    - name: Set authorized key taken from file
+#      authorized_key:
+##        user: root
+#        state: present
+#        key: "{{ lookup('file', './ssh/id_rsa.pub') }}"

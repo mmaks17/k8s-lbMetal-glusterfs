@@ -1,0 +1,27 @@
+- hosts: all
+  gather_facts: false
+  tasks:
+   - name: install gf repo
+     yum:
+        name: centos-release-gluster
+        state: present
+
+   - name: install gluster client
+     yum:
+        name: glusterfs-client
+        state: present
+
+
+   - name: install gluster
+     yum:
+        name: glusterfs-server
+        state: present
+
+   - name: module kernel 
+     raw: modprobe dm_thin_pool
+
+   - name: crete block disk 
+     raw: dd if=/dev/zero of=/tmp/image bs=1M count=10000
+
+   - name: add loop device
+     raw: losetup /dev/loop0 /tmp/image

@@ -1,0 +1,28 @@
+- hosts: all
+  gather_facts: false
+  tasks:
+
+    - name: allow podes on master
+      become: yes
+      shell: kubectl taint node kub1 node-role.kubernetes.io/master:NoSchedule-
+
+    - name: Deploying the Dashboard to Kubernetes.
+      become: yes
+      shell: kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/master/aio/deploy/recommended/kubernetes-dashboard.yaml
+      #kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | grep admin-user | awk '{print $1}')
+
+    - name: add dashboard admin user
+      k8s:
+        state: present
+        src: 5.dashboard-adminuser.yaml
+
+    - name:  get metall load balace
+      become: yes
+      shell: kubectl apply -f https://raw.githubusercontent.com/google/metallb/v0.7.3/manifests/metallb.yaml
+
+    - name: apply metall load balace
+      k8s:
+        state: present
+        src: 9.metallb-config.yaml
+
+

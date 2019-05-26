@@ -1,0 +1,15 @@
+- hosts: all
+  gather_facts: false
+  tasks:
+    - name: crete g service
+      template: src=gservice.j2 dest=/etc/sysconfig/gservice
+    - name: gservice | Create Unit file
+      template: src=gservice.j2 dest=/lib/systemd/system/gservice.service mode=644
+    - name: reload systemctl
+      command: systemctl daemon-reload
+    - name: gservice | Start teamcity
+      service: name=gservice.service state=started enabled=yes
+
+
+
+#https://habr.com/ru/company/southbridge/blog/443658/
