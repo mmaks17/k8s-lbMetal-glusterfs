@@ -1,11 +1,13 @@
 apiVersion: v1 
 kind: Service 
 metadata: 
-  name: heketi-svc 
+  name: pbb 
 spec: 
   type: LoadBalancer 
   selector: 
-    name: heketi
+    app: phpbb-phpbb
   ports: 
-  - port: 8080 
+  - port: 80 
     name: http
+  - port: 443
+    name: https

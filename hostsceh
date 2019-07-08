@@ -1,0 +1,4 @@
+[ceph]
+ceh1 ansible_host=192.168.64.61 ansible_user=root ansible_password=11
+ceh2 ansible_host=192.168.64.62 ansible_user=root ansible_password=11
+ceh3 ansible_host=192.168.64.63 ansible_user=root ansible_password=11

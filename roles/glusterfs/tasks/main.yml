@@ -1,5 +1,4 @@
-- hosts: all
-  gather_facts: false
+---
   tasks:
    - name: install gf repo
      yum:
@@ -17,11 +16,11 @@
         name: glusterfs-server
         state: present
 
-   - name: module kernel 
+   - name: module kernel
      raw: modprobe dm_thin_pool
 
-   - name: crete block disk 
-     raw: dd if=/dev/zero of=/tmp/image bs=1M count=10000
+   - name: crete block disk
+     raw: dd if=/dev/zero of=/tmp/image bs=1M count={{ gfsize }}
 
    - name: add loop device
      raw: losetup /dev/loop0 /tmp/image

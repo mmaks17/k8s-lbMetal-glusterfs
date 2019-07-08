@@ -1,5 +1,4 @@
-- hosts: all
-  become: yes
+---
   tasks:
    - name: install Docker
      yum:
@@ -76,7 +75,7 @@
      yum:
         name: kubectl-1.14.0
         state: present
-        allow_downgrade: yes 
+        allow_downgrade: yes
 
 - hosts: all
   become: yes

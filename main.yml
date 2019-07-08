@@ -1,0 +1,32 @@
+---
+- hosts: all
+  user: root
+  become: yes
+  roles:
+    - before
+    - depences
+    - master
+    - workers
+    - glusterfs
+    - gservice
+#    - template
+
+- hosts: master
+  user: root
+  become: yes
+  roles:
+    - master
+
+- hosts: workers
+  user: root
+  become: yes
+  roles:
+    - workers
+
+- hosts: all
+  user: root
+  become: yes
+  roles:
+    - glusterfs
+    - gservice
+#    - template
