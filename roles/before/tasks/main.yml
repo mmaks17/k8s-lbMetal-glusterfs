@@ -64,6 +64,7 @@
       - wget
       - net-tools
       - ntp
+      - python-openshift
 
 - name: create ntp cron
   cron:

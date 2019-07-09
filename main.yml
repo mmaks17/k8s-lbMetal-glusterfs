@@ -5,11 +5,8 @@
 #   roles:
 #    - before
 #    - depences
-#    - master
-#    - workers
-#   - glusterfs
-#   - gservice
-#    - template
+# #   - glusterfs
+# #   - gservice
 
 # - hosts: master
 #   user: root

@@ -12,19 +12,6 @@
   with_fileglob:
     - ./*
 
-#- name: allow podes on master
-#  become: yes
-#  shell: kubectl taint node kub1 node-role.kubernetes.io/master:NoSchedule-
-
-- name: Deploying the Dashboard to Kubernetes.
-  become: yes
-  shell: kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0-beta1/aio/deploy/recommended.yaml
-  #kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | grep admin-user | awk '{print $1}')
-
-- name: add dashboard admin user
-  k8s:
-    state: present
-    src: /opt/yml/5.dashboard-adminuser.yaml
 
 - name:  get metall load balace
   become: yes
@@ -34,3 +21,27 @@
   k8s:
     state: present
     src: /opt/yml/9.metallb-config.yaml
+
+
+
+
+- name: Deploying the Dashboard to Kubernetes.
+  become: yes
+  shell: kubectl create -f https://raw.githubusercontent.com/kubernetes/dashboard/v1.10.1/src/deploy/recommended/kubernetes-dashboard.yaml
+  #kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | grep admin-user | awk '{print $1}')
+
+
+- name: dashboard vsc deploy
+  k8s:
+    state: present
+    src: /opt/yml/dashbroad-vsc.yml
+
+- name: apply dash adm user
+  k8s:
+    state: present
+    src: /opt/yml/5.dashboard-adminuser.yaml
+
+- name: apply dash adm user
+  k8s:
+    state: present
+    src: /opt/yml/kbroles.yml

@@ -20,12 +20,12 @@
         remote_src: yes
         owner: root
 
-    - name: Transfer file from ServerA to ServerB
-      synchronize:
-        src: /root/.kube
-        dest: /root/.kube
-        mode: pull
-      delegate_to: kub2
+    # - name: Transfer file from ServerA to ServerB
+    #   synchronize:
+    #     src: /root/.kube
+    #     dest: /root/.kube
+    #     mode: pull
+    #   delegate_to: kub2
 
     - name: install Pod network
       become: yes
@@ -38,6 +38,7 @@
 
     - name: allow pods on nodes
       shell: kubectl taint node kub1 node-role.kubernetes.io/master:NoSchedule-
+
     - name: get join command
       shell: kubeadm token create --print-join-command
       register: join_command_raw
