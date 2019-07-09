@@ -1,5 +1,4 @@
 ---
-  tasks:
     - name: crete g service
       template: src=gservice.j2 dest=/etc/sysconfig/gservice
     - name: gservice | Create Unit file

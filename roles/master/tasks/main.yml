@@ -1,5 +1,4 @@
 ---
-  tasks:
     - name: initialize the cluster
       shell: kubeadm init --pod-network-cidr=10.244.0.0/16 >> cluster_initialized.txt
       args:
@@ -21,6 +20,13 @@
         remote_src: yes
         owner: root
 
+    - name: Transfer file from ServerA to ServerB
+      synchronize:
+        src: /root/.kube
+        dest: /root/.kube
+        mode: pull
+      delegate_to: kub2
+
     - name: install Pod network
       become: yes
       become_user: root
@@ -32,3 +38,11 @@
 
     - name: allow pods on nodes
       shell: kubectl taint node kub1 node-role.kubernetes.io/master:NoSchedule-
+    - name: get join command
+      shell: kubeadm token create --print-join-command
+      register: join_command_raw
+
+    - name: set war
+      add_host:
+        name:   "K8S_TOKEN_HOLDER"
+        token:  "{{  join_command_raw.stdout_lines[0] }}"

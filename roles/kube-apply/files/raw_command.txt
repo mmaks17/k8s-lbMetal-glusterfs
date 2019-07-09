@@ -1,0 +1,56 @@
+
+parted -s /dev/sdc mklabel msdos
+
+
+
+ mkdir heketi
+cd heketi/
+wget https://github.com/heketi/heketi/releases/download/v4.0.0/heketi-client-v4.0.0.linux.amd64.tar.gz
+yum install wget -y
+wget https://github.com/heketi/heketi/releases/download/v4.0.0/heketi-client-v4.0.0.linux.amd64.tar.gz
+tar -zxvf heketi-client-v4.0.0.linux.amd64.tar.gz 
+cp heketi-client/bin/heketi-cli /usr/local/bin/
+git clone https://github.com/gluster/gluster-kubernetes.git
+cd gluster-kubernetes/deploy
+vi topology.json
+./gk-deploy -g
+export HEKETI_CLI_SERVER=$(kubectl get svc/heketi --template 'http://{{.spec.clusterIP}}:{{(index .spec.ports 0).port}}')
+curl $HEKETI_CLI_SERVER/hello
+heketi-cli topology load --json=topology.json
+heketi-cli setup-openshift-heketi-storage
+kubectl create -f heketi-storage.json
+
+
+
+kubectl apply -f << EOF 
+
+EOF
+
+
+helm install storageos/storageos --name=my-release --version=0.2.x  --namespace=storageos --set cluster.join="kub1\,kub2\,kub3"                
+
+vi /etc/systemd/system/loop_gluster.service
+
+
+kubectl label node kub1 storagenode=glusterfs
+
+
+wget https://github.com/heketi/heketi/releases/download/v9.0.0/heketi-v9.0.0.linux.amd64.tar.gz
+tar -xvf heketi-v9.0.0.linux.amd64.tar.gz 
+cp ./heketi/heketi-cli  /usr/local/bin/
+heketi-cli -v 
+curl http://10.244.2.2:8080/hello
+export HEKETI_CLI_SERVER=http://10.244.2.2:8080
+heketi-cli topology load --json=topology.json
+heketi-cli setup-openshift-heketi-storage
+kubectl  create -f heketi-storage.json 
+
+
+
+
+kubectl taint node kub1 node-role.kubernetes.io/master:NoSchedule-
+
+
+
+
+~

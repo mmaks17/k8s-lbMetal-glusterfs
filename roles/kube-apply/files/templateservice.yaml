@@ -1,0 +1,13 @@
+apiVersion: v1 
+kind: Service 
+metadata: 
+  name: pbb 
+spec: 
+  type: LoadBalancer 
+  selector: 
+    app: phpbb-phpbb
+  ports: 
+  - port: 80 
+    name: http
+  - port: 443
+    name: https

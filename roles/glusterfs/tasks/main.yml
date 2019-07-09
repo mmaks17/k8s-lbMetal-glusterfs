@@ -1,5 +1,4 @@
 ---
-  tasks:
    - name: install gf repo
      yum:
         name: centos-release-gluster
