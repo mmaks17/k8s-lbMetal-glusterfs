@@ -65,12 +65,19 @@
       - net-tools
       - ntp
       - python-openshift
+      - lvm2
+      - nfs-utils
+      - iftop
+      - nload
+
+
 
 - name: create ntp cron
   cron:
     name: "check time"
     minute: "*/5"
     job: "/sbin/ntpdate ru.pool.ntp.org"
+
 - name: Remove swapfile from /etc/fstab
   mount:
     name: swap
@@ -90,3 +97,9 @@
 ##        user: root
 #        state: present
 #        key: "{{ lookup('file', './ssh/id_rsa.pub') }}"
+
+
+- name: Reboot a slow machine that might have lots of updates to apply
+  reboot:
+    reboot_timeout: 360
+

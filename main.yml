@@ -1,12 +1,11 @@
 ---
-# - hosts: all
-#   user: root
-#   become: yes
-#   roles:
-#    - before
-#    - depences
-# #   - glusterfs
-# #   - gservice
+- hosts: all
+  user: root
+  become: yes
+  roles:
+   - before
+#  - depences
+
 
 # - hosts: master
 #   user: root
@@ -20,12 +19,14 @@
 #   roles:
 #    - workers
     
-- hosts: master
-  user: root
-  gather_facts: no
-  become: yes
-  roles:
-    - kube-apply
+# - hosts: master
+#   user: root
+#   gather_facts: no
+#   become: yes
+#   roles:
+#     #- kube-apply
+#     - rock
+
 
 #- hosts: all
 #  user: root

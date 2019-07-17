@@ -1,0 +1,52 @@
+---
+- name: create /opt/rock
+  file:
+    path: /opt/rock
+    state: directory
+
+
+- name: copy yml files
+  copy:
+    src: "{{ item }}"
+    dest: /opt/rock
+  with_fileglob:
+    - ./*
+
+
+- name: apply common
+  k8s:
+    state: present
+    src: /opt/rock/common.yaml
+
+- name: apply  operator
+  k8s:
+    state: present
+    src: /opt/rock/operator.yaml
+
+
+- name: apply cluster
+  k8s:
+    state: present
+    src: /opt/rock/cluster-test.yaml
+
+
+- name: apply storageclass
+  k8s:
+    state: present
+    src: /opt/rock/storageclass-test.yaml
+
+
+- name: apply filesystem
+  k8s:
+    state: present
+    src: /opt/rock/filesystem-test.yaml
+
+- name: apply object
+  k8s:
+    state: present
+    src: /opt/rock/object-test.yaml 
+
+- name: apply dashboard
+  k8s:
+    state: present
+    src: /opt/rock/dashboard-loadbalancer.yaml
