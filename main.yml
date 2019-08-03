@@ -1,10 +1,10 @@
 ---
-- hosts: all
-  user: root
-  become: yes
-  roles:
-   - before
-#  - depences
+# - hosts: all
+#   user: root
+#   become: yes
+#   roles:
+#    - before
+#    - depences
 
 
 # - hosts: master
@@ -24,7 +24,7 @@
 #   gather_facts: no
 #   become: yes
 #   roles:
-#     #- kube-apply
+#     - kube-apply
 #     - rock
 
 

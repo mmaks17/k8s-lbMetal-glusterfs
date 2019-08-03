@@ -1,9 +1,8 @@
 [master]
-#kub1 ansible_host=192.168.64.12 ansible_user=root ansible_password=11
+kub1 ansible_host=192.168.64.18 ansible_user=root ansible_password=11
 
 [workers]
-kub2 ansible_host=192.168.64.11 ansible_user=root ansible_password=11
-#kub3 ansible_host=192.168.64.53 ansible_user=root ansible_password=11
+kub2 ansible_host=192.168.64.14 ansible_user=root ansible_password=11
 
 [nfs]
 #nfs ansible_host=192.168.64.61 ansible_user=root ansible_password=11

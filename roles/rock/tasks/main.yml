@@ -13,10 +13,14 @@
     - ./*
 
 
-- name: apply common
-  k8s:
-    state: present
-    src: /opt/rock/common.yaml
+# - name: apply common
+#   k8s:
+#     state: present
+#     src: /opt/rock/common.yaml
+
+- name: apply common 
+  shell: kubectl create -f /opt/rock/common.yaml
+
 
 - name: apply  operator
   k8s:
@@ -50,3 +54,8 @@
   k8s:
     state: present
     src: /opt/rock/dashboard-loadbalancer.yaml
+
+- name: apply dashboard
+  k8s:
+    state: present
+    src: /opt/rock/toolbox.yaml

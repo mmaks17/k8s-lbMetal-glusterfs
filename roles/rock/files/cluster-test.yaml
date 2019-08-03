@@ -14,7 +14,7 @@ metadata:
   namespace: rook-ceph
 spec:
   cephVersion:
-    image: ceph/daemon-base:latest-nautilus-devel
+    image: ceph/ceph:v14.2.2-20190722
     allowUnsupported: true
   dataDirHostPath: /var/lib/rook
   mon:
@@ -45,6 +45,6 @@ spec:
 #      - path: "/data/rook-dir"
 #      devices:
 #      - name: "sdb"
-#      - name: " nvme01" # multiple osds can be created on high performance devices
+#      - name: "nvme01" # multiple osds can be created on high performance devices
 #        config:
 #          osdsPerDevice: "5"
