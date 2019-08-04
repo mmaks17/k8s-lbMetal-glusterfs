@@ -1,9 +1,9 @@
 ---
-# - hosts: all
-#   user: root
-#   become: yes
-#   roles:
-#    - before
+- hosts: all
+  user: root
+  become: yes
+  roles:
+   - before
 #    - depences
 
 
