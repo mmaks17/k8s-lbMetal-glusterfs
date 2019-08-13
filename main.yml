@@ -4,34 +4,40 @@
   become: yes
   roles:
    - before
-#    - depences
 
 
-# - hosts: master
-#   user: root
-#   become: yes
-#   roles:
-#   - master
 
-# - hosts: workers
-#   user: root
-#   become: yes
-#   roles:
-#    - workers
+- hosts: master,workers,rancher
+  user: root
+  become: yes
+  roles:
+   - depences
+
+
+- hosts: master
+  user: root
+  become: yes
+  roles:
+  - master
+
+- hosts: workers
+  user: root
+  become: yes
+  roles:
+   - workers
     
-# - hosts: master
-#   user: root
-#   gather_facts: no
-#   become: yes
-#   roles:
-#     - kube-apply
-#     - rock
+- hosts: master
+  user: root
+  gather_facts: no
+  become: yes
+  roles:
+    - kube-apply
+    - rock
 
-
-#- hosts: all
-#  user: root
-#  become: yes
-#  roles:
-#    - glusterfs
-#    - gservice
-#    - template
+- hosts: all
+  user: root
+  become: yes
+  roles:
+   - glusterfs
+   - gservice
+   - template

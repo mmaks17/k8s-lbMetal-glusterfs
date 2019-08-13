@@ -12,6 +12,10 @@
   with_fileglob:
     - ./*
 
+- name: copy metall lb config
+  template: 
+         src: 9.metallb-config.yaml.j2 
+         dest: /opt/yml/9.metallb-config.yaml
 
 - name:  get metall load balace
   become: yes
