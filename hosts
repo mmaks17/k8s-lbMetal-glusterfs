@@ -1,12 +1,12 @@
 [master]
-kub1 ansible_host=192.168.64.10 ansible_user=root ansible_password=11
+kub1 ansible_host=10.1.0.201 ansible_user=root ansible_password=oggetto
 
 [workers]
-kub2 ansible_host=192.168.64.14 ansible_user=root ansible_password=11
+kub2 ansible_host=10.1.0.202 ansible_user=root ansible_password=oggetto
 
 
 [nfs]
-nfs ansible_host=192.168.64.16 ansible_user=root ansible_password=11
+kub-nfs ansible_host=10.1.0.220 ansible_user=root ansible_password=oggetto
 
 [rancher]
-rancher ansible_host=192.168.64.17 ansible_user=root ansible_password=11
+kub-rancher ansible_host=10.1.0.200 ansible_user=root ansible_password=oggetto

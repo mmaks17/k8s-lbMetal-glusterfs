@@ -34,10 +34,10 @@
     - kube-apply
     - rock
 
-- hosts: all
-  user: root
-  become: yes
-  roles:
-   - glusterfs
-   - gservice
-   - template
+# - hosts: all
+#   user: root
+#   become: yes
+#   roles:
+#    - glusterfs
+#    - gservice
+#    - template
